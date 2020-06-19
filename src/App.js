@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
 
-export default class App extends Component {
+
+const testHoc = (WrappedComponent) => {
+  return class HOCComponent extends Component {
+    render() {
+      return (
+        <>
+          <WrappedComponent />
+          &copy; {new Date().getFullYear()}
+        </>
+      )
+    }
+  }
+}
+
+@testHoc
+class App extends Component {
   render() {
     return (
       <div>
@@ -11,3 +26,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default App
