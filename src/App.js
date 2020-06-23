@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, Link } from 'react-router-dom'
 import { Button  } from 'antd'
 
 
@@ -44,7 +44,9 @@ class App extends Component {
           <Redirect to='/404'/>
         </Switch>
         
-        <Button>button</Button>
+        <Button onclick>button</Button>
+        <Link to='/login'><Button>Login</Button></Link>
+        <Link to='/'><Button>Home</Button></Link>
       </div>
     )
   }

@@ -17,14 +17,13 @@ render(
         return <App  {...routerProps} />
       }} />
       <Redirect to='/admin' from='/' exact/>
-      <Redirect to='/404'/>
-    </Switch>
-
     {
       mainRouter.map(route => {
         return <Route key={route.pathname} path={route.pathname} component={route.component} />
       })
     }
+      <Redirect to='/404'/>
+    </Switch>
   </Router>,
   document.querySelector('#root')
 ) 

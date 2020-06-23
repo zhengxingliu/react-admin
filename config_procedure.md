@@ -9,6 +9,7 @@
 7. set up react-router-dom 
    * creating folder in views and export them 
    * import into routes and set up pathname
-   * set up router in index.js
+   * set up router, route, switch
+   * lazy load routes using **react-loadable**
    * 
 
