@@ -2,23 +2,8 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect, Link } from 'react-router-dom'
 import { Button  } from 'antd'
 
-
 import { adminRouter } from './routes'
 
-// const testHoc = (WrappedComponent) => {
-//   return class HOCComponent extends Component {
-//     render() {
-//       return (
-//         <>
-//           <WrappedComponent />
-//           &copy; {new Date().getFullYear()}
-//         </>
-//       )
-//     }
-//   }
-// }
-
-// @testHoc
 class App extends Component {
   render() {
     return (
@@ -44,9 +29,9 @@ class App extends Component {
           <Redirect to='/404'/>
         </Switch>
         
-        <Button onclick>button</Button>
-        <Link to='/login'><Button>Login</Button></Link>
-        <Link to='/'><Button>Home</Button></Link>
+        <Button>button</Button>
+        <Link to='/admin/article'><Button>article</Button></Link>
+        <Link to='/admin/settings'><Button>settings</Button></Link>
       </div>
     )
   }

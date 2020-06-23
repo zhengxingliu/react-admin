@@ -2,6 +2,7 @@
 2. change *package.json* and *config-overrides.js*
 3. set **less** and **less-loader**
 4. set **antd** in *config-overrides* and theme less variables file
+   * *in new verision should use craco and craco-antd*
 5. set decorator in cra-decorator with *addDecoratorLegacy* and setup HOC
 6. set up folder
    * components, views, routes
