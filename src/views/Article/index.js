@@ -1,10 +1,98 @@
 import React, { Component } from 'react'
+import { Card, Button, Table, Tag, Space } from 'antd'
+
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
+  },
+]
+
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    render: text => <a>{text}</a>
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+  {
+    title: 'Tags',
+    key: 'tags',
+    dataIndex: 'tags',
+    render: tags => (
+      <>
+        {tags.map(tag => {
+          let color = tag.length > 5 ? 'geekblue' : 'green';
+          if (tag === 'loser') {
+            color = 'volcano';
+          }
+          return (
+            <Tag color={color} key={tag}>
+              {tag.toUpperCase()}
+            </Tag>
+          );
+        })}
+      </>
+    ),
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text, record, index) => (
+      <a>Delete</a>
+    ),
+  },
+]
+
 
 export default class ArticleList extends Component {
+
   render() {
     return (
       <div>
-        Article List
+        <Card 
+          title='Article List' 
+          bordered={false} 
+          extra={<Button>Export to Excel</Button>}
+        >
+
+          <Table 
+            columns={columns} 
+            dataSource={data} 
+            // pagination={{
+            //   hideOnSinglePage: true
+            // }}
+          />
+
+        </Card>
+        
       </div>
     )
   }

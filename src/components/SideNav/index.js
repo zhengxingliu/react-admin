@@ -1,21 +1,11 @@
 import React, { Component } from "react"
-
 import { Layout, Menu, Breadcrumb } from "antd"
-
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined
-} from "@ant-design/icons"
-
 import { Link, withRouter } from "react-router-dom"
 
 import "./sideNav.less"
 import logo from "./logo.png"
 import { adminRoutes } from "../../routes"
-import { Footer } from ".."
+import { Footer } from "../../components"
 
 const { Header, Content, Sider } = Layout
 
@@ -56,19 +46,19 @@ class SideNav extends Component {
               })}
             </Menu>
           </Sider>
-          <Layout style={{ padding: "0 24px 24px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
+          <Layout style={{ padding: "24px" }}>
+            {/* <Breadcrumb style={{ margin: "16px 0" }}>
               {breadcrumbs.map((item) => {
                 return <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
               })}
-            </Breadcrumb>
+            </Breadcrumb> */}
 
             <Content
               className="site-layout-background"
               style={{
-                padding: 24,
+                // padding: 24,
                 margin: 0,
-                minHeight: 280,
+                // minHeight: 280,
                 backgroundColor: "#FFF"
               }}
             >
