@@ -9,7 +9,7 @@
   -setting
 */
 import React from "react"
-import Loadable from 'react-loadable'
+// import Loadable from 'react-loadable'
 import loadable from '@loadable/component'
 
 import { Loading } from '../components'

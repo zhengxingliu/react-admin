@@ -1,3 +1,5 @@
+import { DashboardOutlined, FileTextOutlined, SettingOutlined} from "@ant-design/icons"
+
 import {
   Dashboard, 
   Login, 
@@ -8,7 +10,7 @@ import {
 } from '../views'
 
 
-export const mainRouter =  [{
+export const mainRoutes =  [{
   pathname: '/login',
   component: Login
 },{
@@ -17,17 +19,26 @@ export const mainRouter =  [{
 }]
 
 
-export const adminRouter = [{
+export const adminRoutes = [{
   pathname: '/admin/dashboard',
-  component: Dashboard
-},{
-  pathname: '/admin/settings',
-  component: Settings
+  component: Dashboard,
+  title: 'Dashboard',
+  isNav: true,
+  icon: DashboardOutlined
 },{
   pathname: '/admin/article',
   component: ArticleList,
-  exact: true
+  exact: true,
+  title: 'Article List',
+  isNav: true,
+  icon: FileTextOutlined
 },{
   pathname: '/admin/article/edit/:id',
   component: ArticleEdit
+},{
+  pathname: '/admin/settings',
+  component: Settings,
+  title: 'Settings',
+  isNav: true,
+  icon: SettingOutlined
 }]

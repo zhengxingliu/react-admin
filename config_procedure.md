@@ -12,5 +12,7 @@
    * import into routes and set up pathname
    * set up router, route, switch
    * lazy load routes using **react-loadable**
-   * 
+8.  configure sidebar frame ui using antd layout
+   * clickable navbar using antd's *menu onclick* and *withRouter*
+   * or just *Link*
 

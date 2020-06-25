@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import App from './App'
 import './index.less'
 
-import { mainRouter } from './routes'
+import { mainRoutes } from './routes'
 
 
 render(
@@ -18,7 +18,7 @@ render(
       }} />
       <Redirect to='/admin' from='/' exact/>
     {
-      mainRouter.map(route => {
+      mainRoutes.map(route => {
         return <Route key={route.pathname} path={route.pathname} component={route.component} />
       })
     }
