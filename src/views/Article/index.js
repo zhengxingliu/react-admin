@@ -1,78 +1,75 @@
 import React, { Component } from 'react'
-import { Card, Button, Table, Tag, Space } from 'antd'
+import { Card, Button, Table, Spin, Tag } from 'antd'
+import moment from 'moment'
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-]
+import { getArticleList} from '../../requests'
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: text => <a>{text}</a>
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: tags => (
-      <>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (text, record, index) => (
-      <a>Delete</a>
-    ),
-  },
-]
-
+// window.moment = moment
 
 export default class ArticleList extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      data: [],
+
+      columns: [],
+      total: 0,
+      isLoading: true
+    }
+  }
+
+
+  
+
+  componentDidMount() {
+
+    getArticleList()
+      .then(res => {
+
+        this.setState({
+          total: res.data.total,
+          data: res.data.list.map(item => {
+            return {
+              ...item,
+              key: item.id,
+              // createAt: new Date(item.createAt).toLocaleDateString()
+              createAt: moment(item.createAt).format('L')
+            }
+          }),
+          columns: [
+            {
+              title: 'Title',
+              dataIndex: 'title',
+              key: 'title',
+              render: text => <a herf='#'>{text}</a>
+            },
+            {
+              title: 'Author',
+              dataIndex: 'author',
+              key: 'author',
+            },
+            {
+              title: 'Reads',
+              dataIndex: 'reads',
+              key: 'reads',
+              render: text => (
+                parseInt(text) > 5000 
+                ?  <Tag color='red'>{text}</Tag>
+                : <Tag>{text}</Tag>
+              )
+            },
+            {
+              title: 'Created At',
+              dataIndex: 'createAt',
+              key: 'createAt'
+            }
+          ],
+          isLoading: false
+        })
+      })  
+      
+  }
 
   render() {
     return (
@@ -82,14 +79,17 @@ export default class ArticleList extends Component {
           bordered={false} 
           extra={<Button>Export to Excel</Button>}
         >
-
-          <Table 
-            columns={columns} 
-            dataSource={data} 
-            // pagination={{
-            //   hideOnSinglePage: true
-            // }}
-          />
+  
+          <Spin spinning={this.state.isLoading} size={'large'}>
+            <Table 
+              columns={this.state.columns} 
+              dataSource={this.state.data} 
+              pagination={{
+                hideOnSinglePage: true,
+                total: this.state.total
+              }}
+            />
+          </Spin>
 
         </Card>
         

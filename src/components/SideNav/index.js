@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Layout, Menu, Breadcrumb } from "antd"
+import { Layout, Menu } from "antd"
 import { Link, withRouter } from "react-router-dom"
 
 import "./sideNav.less"
@@ -12,8 +12,8 @@ const { Header, Content, Sider } = Layout
 @withRouter
 class SideNav extends Component {
   render() {
-    let breadcrumbs = this.props.location.pathname.split("/")
-    breadcrumbs = breadcrumbs.filter((item) => item !== "")
+    // let breadcrumbs = this.props.location.pathname.split("/")
+    // breadcrumbs = breadcrumbs.filter((item) => item !== "")
 
     const menus = adminRoutes.filter((route) => route.isNav === true)
 

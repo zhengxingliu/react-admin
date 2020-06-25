@@ -15,4 +15,9 @@
 8.  configure sidebar frame ui using antd layout
    * clickable navbar using antd's *menu onclick* and *withRouter*
    * or just *Link*
+9. add article page ui
+   * use *Table* to display data 
+   * set up mock api using *rap2.taobao.org* 
+   * fetch using axiois, set up axios and interceptors
+   * format time using *moment js* 
 
