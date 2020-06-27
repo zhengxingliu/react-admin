@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button, Table, Spin, Tag } from 'antd'
+import { Card, Button, Table, Tag } from 'antd'
 import moment from 'moment'
 
 import { getArticleList} from '../../requests'
@@ -7,15 +7,15 @@ import { getArticleList} from '../../requests'
 // window.moment = moment
 
 export default class ArticleList extends Component {
-
   constructor() {
     super()
     this.state = {
       data: [],
-
       columns: [],
       total: 0,
-      isLoading: false
+      isLoading: false,
+      offet: 0,
+      limited: 10,
     }
   }
 
@@ -64,7 +64,7 @@ export default class ArticleList extends Component {
 
   getData = () => {
     this.setState({isLoading: true})
-    getArticleList()
+    getArticleList(this.state.offset, this.state.limited)
       .then(res => {
         this.setState({
           total: res.data.total,
@@ -87,6 +87,24 @@ export default class ArticleList extends Component {
       })
   }
 
+  onPageChange = (page, pageSize) => {  
+    this.setState({
+      offset: pageSize * (page - 1) , 
+      limited: pageSize
+    }, () => {
+      this.getData()
+    })
+  }
+  onPageSizeChange = (current, size) => {
+    this.setState({
+      offset: 0,
+      limited: size,
+      }, () => {
+      this.getData()
+    })
+    
+  }
+
   componentDidMount() {
     this.getData()
   }
@@ -99,20 +117,20 @@ export default class ArticleList extends Component {
           bordered={false} 
           extra={<Button>Export to Excel</Button>}
         >
-  
           <Table 
             loading={this.state.isLoading}
             columns={this.state.columns} 
             dataSource={this.state.data} 
             pagination={{
+              onChange: this.onPageChange,
+              onShowSizeChange: this.onPageSizeChange,
               hideOnSinglePage: true,
-              total: this.state.total
+              total: this.state.total,
+              showQuickJumper: true,
+              showSizeChanger: true
             }}
           />
-
-
-        </Card>
-        
+        </Card> 
       </div>
     )
   }
