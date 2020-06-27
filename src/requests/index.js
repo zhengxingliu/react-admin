@@ -23,6 +23,7 @@ ajax.interceptors.response.use((resp) => {
   if (resp.data.code === 200 && resp.data.errMsg === '') {
     return resp.data
   } else {
+    // handle error globally 
     // message.error(resp.data.errMsg);
     message.error('Failed to retrieve data')
   }

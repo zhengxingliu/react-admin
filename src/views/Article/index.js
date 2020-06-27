@@ -15,18 +15,57 @@ export default class ArticleList extends Component {
 
       columns: [],
       total: 0,
-      isLoading: true
+      isLoading: false
     }
   }
 
 
-  
+  getColumns = () => {
+    return [
+      {
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
+        render: text => <a herf='#'>{text}</a>
+      },
+      {
+        title: 'Author',
+        dataIndex: 'author',
+        key: 'author',
+      },
+      {
+        title: 'Reads',
+        dataIndex: 'reads',
+        key: 'reads',
+        render: text => (
+          parseInt(text) > 5000 
+          ?  <Tag color='red'>{text}</Tag>
+          : <Tag>{text}</Tag>
+        )
+      },
+      {
+        title: 'Created At',
+        dataIndex: 'createAt',
+        key: 'createAt'
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: () => (
+          <Button.Group>
+            <Button >Edit</Button>
+            <Button >Delete</Button>
+          </Button.Group>
+        )
+      }
+    ]
 
-  componentDidMount() {
+  }
 
+  getData = () => {
+    this.setState({isLoading: true})
     getArticleList()
       .then(res => {
-
         this.setState({
           total: res.data.total,
           data: res.data.list.map(item => {
@@ -37,38 +76,19 @@ export default class ArticleList extends Component {
               createAt: moment(item.createAt).format('L')
             }
           }),
-          columns: [
-            {
-              title: 'Title',
-              dataIndex: 'title',
-              key: 'title',
-              render: text => <a herf='#'>{text}</a>
-            },
-            {
-              title: 'Author',
-              dataIndex: 'author',
-              key: 'author',
-            },
-            {
-              title: 'Reads',
-              dataIndex: 'reads',
-              key: 'reads',
-              render: text => (
-                parseInt(text) > 5000 
-                ?  <Tag color='red'>{text}</Tag>
-                : <Tag>{text}</Tag>
-              )
-            },
-            {
-              title: 'Created At',
-              dataIndex: 'createAt',
-              key: 'createAt'
-            }
-          ],
-          isLoading: false
+          columns: this.getColumns()
         })
-      })  
-      
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
+        this.setState({isLoading: false})
+      })
+  }
+
+  componentDidMount() {
+    this.getData()
   }
 
   render() {
@@ -80,16 +100,16 @@ export default class ArticleList extends Component {
           extra={<Button>Export to Excel</Button>}
         >
   
-          <Spin spinning={this.state.isLoading} size={'large'}>
-            <Table 
-              columns={this.state.columns} 
-              dataSource={this.state.data} 
-              pagination={{
-                hideOnSinglePage: true,
-                total: this.state.total
-              }}
-            />
-          </Spin>
+          <Table 
+            loading={this.state.isLoading}
+            columns={this.state.columns} 
+            dataSource={this.state.data} 
+            pagination={{
+              hideOnSinglePage: true,
+              total: this.state.total
+            }}
+          />
+
 
         </Card>
         
