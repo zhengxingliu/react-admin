@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Card, Button, Table, Tag } from 'antd'
 import moment from 'moment'
+import XLSX from 'xlsx'
 
 import { getArticleList} from '../../requests'
 
-// window.moment = moment
 
 export default class ArticleList extends Component {
   constructor() {
@@ -14,7 +14,7 @@ export default class ArticleList extends Component {
       columns: [],
       total: 0,
       isLoading: false,
-      offet: 0,
+      offset: 0,
       limited: 10,
     }
   }
@@ -105,6 +105,24 @@ export default class ArticleList extends Component {
     
   }
 
+
+
+  toExcel = () => {
+    // should be processed by backend
+    // send ajax request to backend, return download link
+
+    const data = [Object.keys(this.state.data[0]).slice(0,-1)]
+    this.state.data.forEach(item => {
+      data.push(Object.values(item).slice(0,-1))
+    })
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "ArticleList");
+    XLSX.writeFile(wb, `articles-${this.state.offset/this.state.limited+1}-${moment().format('YYYYMMDDHHmmss')}.xlsx`)
+    
+  }
+
   componentDidMount() {
     this.getData()
   }
@@ -115,7 +133,7 @@ export default class ArticleList extends Component {
         <Card 
           title='Article List' 
           bordered={false} 
-          extra={<Button>Export to Excel</Button>}
+          extra={<Button onClick={this.toExcel}>Export to Excel</Button>}
         >
           <Table 
             loading={this.state.isLoading}
