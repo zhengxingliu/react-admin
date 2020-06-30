@@ -11,6 +11,7 @@
 import React from "react"
 // import Loadable from 'react-loadable'
 import loadable from '@loadable/component'
+// import pMinDelay from 'p-min-delay'
 
 import { Loading } from '../components'
 
@@ -21,6 +22,12 @@ import { Loading } from '../components'
 // import ArticleList from './Article/index'
 // import ArticleEdit from './Article/edit'
 
+
+// const Dashboard = loadable(() => 
+//   pMinDelay(
+//     import('./Dashboard'), {fallback:  <Loading/>},
+//     200
+// ))
 
 const Dashboard = loadable(() => import('./Dashboard'), {
   fallback:  <Loading/>

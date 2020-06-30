@@ -25,13 +25,18 @@ ajax.interceptors.response.use((resp) => {
   } else {
     // handle error globally 
     // message.error(resp.data.errMsg);
-    message.error('Failed to retrieve data')
+    message.error('An error occurred.')
   }
 })
 
 export const getArticleList = (offset=0, limited=10) => {
   return ajax.post('/api/v1/articlelist', {
+    //body params
     offset,
     limited
   })
+}
+
+export const deleteArticle = (id) => {
+  return ajax.delete(`/api/v1/article/${id}`)
 }

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Card, Button, Table, Tag } from 'antd'
+import { Card, Button, Table, Tag, Modal, Typography, message, Tooltip} from 'antd'
 import moment from 'moment'
 import XLSX from 'xlsx'
 
-import { getArticleList} from '../../requests'
+
+import { getArticleList, deleteArticle} from '../../requests'
 
 
 export default class ArticleList extends Component {
@@ -20,7 +21,7 @@ export default class ArticleList extends Component {
   }
 
 
-  getColumns = () => {
+  getTableColumns = () => {
     return [
       {
         title: 'Title',
@@ -39,7 +40,7 @@ export default class ArticleList extends Component {
         key: 'reads',
         render: text => (
           parseInt(text) > 5000 
-          ?  <Tag color='red'>{text}</Tag>
+          ?  <Tooltip title="popular article" color='rgba(13, 13, 13, 0.7)'><Tag color='red'>{text}</Tag></Tooltip>
           : <Tag>{text}</Tag>
         )
       },
@@ -51,10 +52,11 @@ export default class ArticleList extends Component {
       {
         title: 'Action',
         key: 'action',
-        render: () => (
+        render: (text, record) => (
           <Button.Group>
-            <Button >Edit</Button>
-            <Button >Delete</Button>
+            <Button onClick={this.onEdit.bind(this, record)}>Edit</Button>
+            <Button onClick={this.deleteArticle.bind(this, record, this.getData)}>Delete</Button>
+
           </Button.Group>
         )
       }
@@ -76,7 +78,7 @@ export default class ArticleList extends Component {
               createAt: moment(item.createAt).format('L')
             }
           }),
-          columns: this.getColumns()
+          columns: this.getTableColumns()
         })
       })
       .catch(err => {
@@ -101,11 +103,46 @@ export default class ArticleList extends Component {
       limited: size,
       }, () => {
       this.getData()
-    })
-    
+    })   
   }
 
+  onEdit = (record) => {
+    this.props.history.push({
+      pathname: `/admin/article/edit/${record.id}`,
+      state: { title : record.title }
+    })
+  }
 
+  deleteArticle = (record, getData) => {
+    Modal.confirm({
+      title: 
+        <Typography>Are you sure you want to delete 
+          <Typography style={{color: '#fbad13'}}>{record.title}<span style={{color: '#626262'}}> ?</span>
+          </Typography> 
+        </Typography>,
+      content: 'This action is irreversible.',
+      okType: 'danger',
+      okText: 'Delete',
+      maskClosable: true,
+      onOk() {
+        //async promise confirm
+        return deleteArticle(record.id)
+          .then(res => {
+            if (res.code === 200) {
+              message.success('Article deleted.')
+              getData()
+            }
+          })
+          .catch(err => {
+            Modal.error({
+              content: 'Unable to delete article. Please try again.',
+            })
+          })
+        
+      },
+      onCancel() {},
+    });
+  }
 
   toExcel = () => {
     // should be processed by backend
@@ -120,7 +157,6 @@ export default class ArticleList extends Component {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "ArticleList");
     XLSX.writeFile(wb, `articles-${this.state.offset/this.state.limited+1}-${moment().format('YYYYMMDDHHmmss')}.xlsx`)
-    
   }
 
   componentDidMount() {

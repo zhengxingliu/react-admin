@@ -20,4 +20,8 @@
    * set up mock api using *rap2.taobao.org* 
    * fetch using axiois, set up axios and interceptors
    * format time using *moment js* 
+   * add delete and edit function
+   * delete: use *model* with return promise 
+   * edit: forward link and data using *this.props.history.push()* from *withRouter*
+   * 
 
