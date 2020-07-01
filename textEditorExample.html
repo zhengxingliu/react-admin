@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3>Enable edit using div with contenteditable</h3>
+
+  <div contenteditable="" style="border: 1px solid #dedede; width: 500px; min-height: 100px;">
+    <img height='100px'src="https://secure.img1-fg.wfcdn.com/im/98270403/resize-h800-w800%5Ecompr-r85/8470/84707680/default_name.jpg" alt="">
+    <p>
+      unlike textarea, images can also be rendered
+    </p>
+  </div>
+
+  <button onclick='boldStyle()'>Bold</button> 
+  <button onclick='italicStyle()'>Italic</button>
+  <button onclick='redFont()'> Red Font</button>
+  <button onclick='design()'>Design Mode</button>
+</body>
+
+<script>
+  const boldStyle = () => {
+   
+    document.execCommand('bold')
+  }
+  const italicStyle = () => {
+    document.execCommand('italic')
+  }
+
+  const redFont = () => {
+    document.execCommand('foreColor', null, '#F00')
+  }
+  const design = () => {
+    document.designMode = 'on';
+  }
+</script>
+</html>

@@ -27,8 +27,10 @@ export default class ArticleList extends Component {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        render: text => <a herf='#'>{text}</a>
+        render: (text, record) => 
+          <Button onClick={this.onEdit.bind(this, record)} type="link">{text}</Button>,
       },
+     
       {
         title: 'Author',
         dataIndex: 'author',
@@ -47,7 +49,8 @@ export default class ArticleList extends Component {
       {
         title: 'Created At',
         dataIndex: 'createAt',
-        key: 'createAt'
+        key: 'createAt',
+        responsive:  ['lg']
       },
       {
         title: 'Action',
@@ -58,7 +61,8 @@ export default class ArticleList extends Component {
             <Button onClick={this.deleteArticle.bind(this, record, this.getData)}>Delete</Button>
 
           </Button.Group>
-        )
+        ),
+        responsive:  ['lg']
       }
     ]
 

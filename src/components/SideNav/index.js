@@ -28,7 +28,7 @@ class SideNav extends Component {
           </div>
         </Header>
         <Layout>
-          <Sider breakpoint="md" collapsedWidth="0">
+          <Sider breakpoint="xl" collapsedWidth="0">
             <Menu 
               onClick={this.menuClicked}
               mode="inline"
