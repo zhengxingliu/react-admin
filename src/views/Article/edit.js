@@ -31,18 +31,23 @@ const formValidateMessages = {
 const quillModules = {
   toolbar: [
     [{ 'header': [1, 2, false] }],
+    [{ 'font': [] }],
+    [{ 'color': [] }, { 'background': [] }], 
     ['bold', 'italic', 'underline','strike', 'blockquote'],
-    [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-    ['link', 'image'],
-    ['clean']
+    [{'list': 'ordered'}, {'list': 'bullet'}], 
+    ['link', 'image', 'code'],
+    [{'indent': '-1'}, {'indent': '+1'}, {'align': [] }],
+    ['clean'],
+
+
   ],
 }
 
 const quillFormats = [
-  'header',
+  'header', 'color', 'background', 'font', 'align',
   'bold', 'italic', 'underline', 'strike', 'blockquote',
   'list', 'bullet', 'indent',
-  'link', 'image'
+  'link', 'image', 'code'
 ]
 
 

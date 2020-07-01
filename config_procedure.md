@@ -45,7 +45,10 @@
       * document.execCommand('bold')
       * document.designMode = 'on'
 
-    js editor: *wangeditor*
+    rtf editor: *wangeditor*, *Quill*
 
     md editor: *edit.md*
-
+    
+    WYSIWYG editor: *CKEditor, TinyMCE*
+    
+    
