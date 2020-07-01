@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { Card, Button, Form, Input, InputNumber, DatePicker } from 'antd'
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-const layout = {
+import './quillEditor.less'
+
+const formLayout = {
   labelCol: {
     span: 4 //antd grid system
   },
@@ -10,7 +14,7 @@ const layout = {
     span: 16
   }
 }
-const tailLayout = {
+const formTailLayout = {
   labelCol: {
     span: 4
   },
@@ -20,10 +24,26 @@ const tailLayout = {
   }
 }
 
-const validateMessages = {
+const formValidateMessages = {
   required: '${label} is required!'
 }
 
+const quillModules = {
+  toolbar: [
+    [{ 'header': [1, 2, false] }],
+    ['bold', 'italic', 'underline','strike', 'blockquote'],
+    [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+    ['link', 'image'],
+    ['clean']
+  ],
+}
+
+const quillFormats = [
+  'header',
+  'bold', 'italic', 'underline', 'strike', 'blockquote',
+  'list', 'bullet', 'indent',
+  'link', 'image'
+]
 
 
 export default class Edit extends Component {
@@ -51,6 +71,11 @@ export default class Edit extends Component {
     this.props.history.push('/admin/article')
   }
 
+  onQuillEdit = (value) => {
+    this.setState({ text: value })
+    console.log(this.state.text)
+  }
+
   componentDidMount() {
     this.onFill()
   }
@@ -63,11 +88,11 @@ export default class Edit extends Component {
           bordered={false} 
           extra={<Button onClick={this.onCancel.bind(this)}>Cancel</Button>}>
           <Form
-            {...layout}
+            {...formLayout}
             ref={this.formRef}
             name="article-edit"
             onFinish={this.onSubmit}
-            validateMessages={validateMessages}
+            validateMessages={formValidateMessages}
             validateTrigger='onChange'
           >
             <Form.Item 
@@ -149,15 +174,26 @@ export default class Edit extends Component {
                 }
               ]}
             >
-              <Input.TextArea
+              {/* <Input.TextArea
               // style={{height: '40vh'}}
               autoSize={{minRows: 8}}
               placeholder="Enter aritcle content here."
-              />
+              /> */}
+              {/* <QuillEditor 
+                onQuillEdit={this.onQuillEdit.bind(this)}
+                placeholder='Enter aritcle content here...'>
+              </QuillEditor> */}
+              <ReactQuill
+                modules={quillModules}
+                formats={quillFormats}
+                placeholder='Enter aritcle content here...'
+              ></ReactQuill>
+         
             </Form.Item>
+            
 
 
-            <Form.Item {...tailLayout}>
+            <Form.Item {...formTailLayout}>
               <Button type="primary" htmlType="submit" style={{marginRight: '8px'}}>
                 Save Change
               </Button>
