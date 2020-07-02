@@ -49,7 +49,7 @@ const ArticleList = loadable(() => import('./Article/index'), {
   fallback:  <Loading/>
 })
 
-const ArticleEdit = loadable(() => import('./Article/edit'), {
+const ArticleEdit = loadable(() => import('./Article/Edit'), {
   fallback:  <Loading/>
 })
 

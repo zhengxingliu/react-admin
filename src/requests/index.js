@@ -20,7 +20,7 @@ ajax.interceptors.request.use((config) => {
 })
 
 ajax.interceptors.response.use((resp) => {
-  if (resp.data.code === 200 && resp.data.errMsg === '') {
+  if (parseInt(resp.data.code) === 200 && resp.data.errMsg === '') {
     return resp.data
   } else {
     // handle error globally 
@@ -39,4 +39,13 @@ export const getArticleList = (offset=0, limited=10) => {
 
 export const deleteArticle = (id) => {
   return ajax.delete(`/api/v1/article/${id}`)
+}
+
+export const getArticleById = (id) => {
+  return ajax.post(`/api/v1/article/:${id}`)
+}
+
+export const saveArticle = (id, data) => {
+  return ajax.put(`/api/v1/article/:${id}`, data)
+
 }
