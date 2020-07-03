@@ -32,7 +32,74 @@ export default class Dashboard extends Component {
           months.push(item.month)
           visits.push(item.visits)
         })
-        this.initSiteVisitsChart(visits, months)
+        const option = {
+          color: ['#1a90ff'],
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {           
+                type: 'shadow'        
+            }
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: [
+            {   
+              type: 'category',
+              data: months,
+              axisTick: {
+                  alignWithLabel: true,
+                  show: false
+              },
+              axisLine: { 
+                lineStyle: {
+                  color: '#999'
+                }
+              },
+              axisLabel: {
+                textStyle: {
+                    color: '#999'
+                }
+              }
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              axisLine: { 
+                lineStyle: {
+                  color: '#999'
+                }
+              },
+              axisLabel: {
+                textStyle: {
+                    color: '#999'
+                }
+              },
+              axisTick: {
+                show: false
+              }
+            }
+          ],
+          series: [
+            {
+              name: 'visits',
+              type: 'bar',
+              areaStyle: {},
+              barWidth: '60%',
+              data: visits
+            }
+          ],
+          dataZoom: [
+            {
+              type: 'inside',
+            }
+        ],
+      }
+      this.siteVisitsChart.setOption(option)
       })
       .catch(err => {
         console.log(err)
@@ -40,90 +107,22 @@ export default class Dashboard extends Component {
       })
   }
   
-
-  initSiteVisitsChart = (data, dataAxis) => {  
-    this.articleChart = echarts.init(this.VisitsChartRef.current)
-    this.data = data
-    this.datAxis = dataAxis
-
-    const option = {
-      color: ['#1a90ff'],
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {           
-            type: 'shadow'        
-        }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: [
-        {   
-          type: 'category',
-          data: dataAxis,
-          axisTick: {
-              alignWithLabel: true,
-              show: false
-          },
-          axisLine: { 
-            lineStyle: {
-              color: '#999'
-            }
-          },
-          axisLabel: {
-            textStyle: {
-                color: '#999'
-            }
-          }
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value',
-          axisLine: { 
-            lineStyle: {
-              color: '#999'
-            }
-          },
-          axisLabel: {
-            textStyle: {
-                color: '#999'
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        }
-      ],
-      series: [
-        {
-          name: 'visits',
-          type: 'bar',
-          areaStyle: {},
-          barWidth: '60%',
-          data: data
-        }
-      ],
-      dataZoom: [
-        {
-          type: 'inside',
-        }
-    ],
-  }
-    this.articleChart.setOption(option)
+  initSiteVisitsChart = () => {  
+    this.siteVisitsChart = echarts.init(this.VisitsChartRef.current)
   }
 
   resizeChart = () => {
-    this.articleChart.resize()
+    setTimeout(() => {
+      this.siteVisitsChart.resize()
+    }, 800);
   }
   
   
   componentDidMount() {
+    this.initSiteVisitsChart()
     this.getVisitsGraphData()
     window.addEventListener('resize', this.resizeChart);
+    window.addEventListener('fullscreenchange', this.resizeChart.bind(this))
   }
 
 
