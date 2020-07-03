@@ -49,3 +49,7 @@ export const saveArticle = (id, data) => {
   return ajax.put(`/api/v1/article/:${id}`, data)
 
 }
+
+export const getSiteVisitStatistics = () => {
+  return ajax.post('/api/v1/statistics/visits')
+}
