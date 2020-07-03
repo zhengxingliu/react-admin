@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button, Table, Tag, Modal, Typography, message, Tooltip} from 'antd'
+import { EditOutlined, DeleteOutlined  } from '@ant-design/icons'
 import moment from 'moment'
 import XLSX from 'xlsx'
 
@@ -27,14 +28,16 @@ export default class ArticleList extends Component {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        render: (text, record) => 
-          <Button onClick={this.onEdit.bind(this, record)} type="link">{text}</Button>,
+        render: (text, record) => (
+          <Typography onClick={this.onEdit.bind(this, record)} style={{color: '#58aaff', cursor: 'pointer'}} >{text}</Typography>
+        )
       },
      
       {
         title: 'Author',
         dataIndex: 'author',
         key: 'author',
+        responsive: ['md']
       },
       {
         title: 'Reads',
@@ -44,25 +47,23 @@ export default class ArticleList extends Component {
           parseInt(text) > 5000 
           ?  <Tooltip title="popular article" color='rgba(13, 13, 13, 0.7)'><Tag color='red'>{text}</Tag></Tooltip>
           : <Tag>{text}</Tag>
-        )
+        ), 
       },
       {
         title: 'Created At',
         dataIndex: 'createAt',
         key: 'createAt',
-        responsive:  ['lg']
+        responsive:  ['md']
       },
       {
         title: 'Action',
         key: 'action',
         render: (text, record) => (
           <Button.Group>
-            <Button onClick={this.onEdit.bind(this, record)}>Edit</Button>
-            <Button onClick={this.deleteArticle.bind(this, record, this.getData)}>Delete</Button>
-
+            <Button onClick={this.onEdit.bind(this, record)}><EditOutlined /></Button>
+            <Button onClick={this.deleteArticle.bind(this, record, this.getData)}><DeleteOutlined /></Button>
           </Button.Group>
-        ),
-        responsive:  ['lg']
+        )
       }
     ]
 
@@ -179,6 +180,7 @@ export default class ArticleList extends Component {
             loading={this.state.isLoading}
             columns={this.state.columns} 
             dataSource={this.state.data} 
+            size='small'
             pagination={{
               onChange: this.onPageChange,
               onShowSizeChange: this.onPageSizeChange,

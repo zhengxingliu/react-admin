@@ -1,7 +1,8 @@
 import React, { Component, createRef } from 'react'
-import { Card, Row, Col, Progress, Statistic, Divider, Typography } from 'antd'
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
+import { Card, Row, Col, Progress, Statistic, Divider, Typography, Spin, Result } from 'antd'
+import { ArrowUpOutlined, ArrowDownOutlined, FrownOutlined  } from '@ant-design/icons'
 import echarts from 'echarts'
+import moment from 'moment'
 
 import { getSiteVisitStatistics }  from '../../requests'
 import './Dashboard.less'
@@ -19,19 +20,18 @@ export default class Dashboard extends Component {
     super()
     this.VisitsChartRef = createRef()
     this.state = {
-      hasError : false
+      isLoading: false,
+      hasError: false,
+      time: moment()
     }
   }
   
   getVisitsGraphData = () => {
-    const months  = []
-    const visits = []
+    this.setState({isLoading: true})
     getSiteVisitStatistics()
       .then(res => {
-        res.data.amount.forEach(item => {
-          months.push(item.month)
-          visits.push(item.visits)
-        })
+        const months = res.data.amount.map(item => item.month)
+        const visits = res.data.amount.map(item => item.visits)
         const option = {
           color: ['#1a90ff'],
           tooltip: {
@@ -87,7 +87,7 @@ export default class Dashboard extends Component {
           series: [
             {
               name: 'visits',
-              type: 'bar',
+              type: 'line',
               areaStyle: {},
               barWidth: '60%',
               data: visits
@@ -105,6 +105,9 @@ export default class Dashboard extends Component {
         console.log(err)
         this.setState({hasError: true})
       })
+      .finally(() => {
+        this.setState({isLoading: false})
+      })
   }
   
   initSiteVisitsChart = () => {  
@@ -117,10 +120,14 @@ export default class Dashboard extends Component {
     }, 800);
   }
   
+  updateClock = (e) => {
+    setInterval(function(){ this.setState({time: moment()}) }.bind(this), 1000)
+  }
   
   componentDidMount() {
     this.initSiteVisitsChart()
     this.getVisitsGraphData()
+    this.updateClock()
     window.addEventListener('resize', this.resizeChart);
     window.addEventListener('fullscreenchange', this.resizeChart.bind(this))
   }
@@ -145,7 +152,7 @@ export default class Dashboard extends Component {
 
 
             <Col className="gutter-row" {...gridSpan}>
-              <Card hoverable className='gutter-box' bodyStyle={{padding: '12px'}}>
+              <Card hoverable className='gutter-box' bodyStyle={{padding: '13px'}}>
                     <Statistic
                       title="Active"
                       value={11.28}
@@ -155,7 +162,7 @@ export default class Dashboard extends Component {
           
                       suffix="%"
                     />
-                    <Divider></Divider>
+                    <Divider />
                     <Statistic
                       title="Idle"
                       value={9.3}
@@ -165,18 +172,27 @@ export default class Dashboard extends Component {
                       suffix="%"
                     />
                 </Card>
-        
             </Col>
 
+
+            <Col  className="gutter-row" {...gridSpan} >
+              <Card hoverable className='gutter-box' bodyStyle={{paddingTop: '14px'}}>
+                <Statistic title="Total Article" value={671135} />
+                <Divider />
+                <Statistic title="Total Users" value={112893} style={{marginTop: '-4px'}}/>
+              </Card>
+            </Col>
 
             <Col className="gutter-row" {...gridSpan}>
-              <Card className='gutter-box' >test</Card>
+              <Card hoverable className='gutter-box' bodyStyle={{paddingTop: '45px'}}>
+                <h3>{this.state.time.format('dddd')}</h3>
+                <h2>{this.state.time.format('MMMM Do')}</h2>
+                <Typography>{this.state.time.format('h:mm:ss a')}</Typography>
+                {/* <Typography.Title level={3} style={{color: '#1a90ff'}}>{this.state.time.format('dddd, MMMM Do')}</Typography.Title>
+                <Typography.Title level={4}>{this.state.time.format('h:mm:ss a')}</Typography.Title> */}
+              </Card>
             </Col>
 
-
-            <Col flex className="gutter-row" {...gridSpan}>
-              <Card className='gutter-box' >test</Card>
-            </Col>
           </Row>
         </Card>
 
@@ -185,7 +201,12 @@ export default class Dashboard extends Component {
         bordered={false}
         // bodyStyle={{paddingTop: '6px'}}
         >
-          <div ref={this.VisitsChartRef} style={{height: '300px', flex: 'auto', width: '100%'}}></div>
+          <Spin spinning={this.state.isLoading}>
+          {
+          this.state.hasError ? <Result icon={<FrownOutlined />} title={'Failed to retrive data'} />
+          : <div ref={this.VisitsChartRef} style={{height: '300px', flex: 'auto', width: '100%'}}></div>
+          }
+          </Spin>
         </Card>
 
       </>
