@@ -8,6 +8,7 @@
     -edit
   -setting
 */
+
 import React from "react"
 // import Loadable from 'react-loadable'
 import loadable from '@loadable/component'
@@ -45,6 +46,10 @@ const Settings = loadable(() => import('./Settings'), {
   fallback: <Loading/>
 })
 
+const Notifications = loadable(() => import('./Notifications'), {
+  fallback: <Loading/>
+})
+
 const ArticleList = loadable(() => import('./Article/index'), {
   fallback:  <Loading/>
 })
@@ -66,6 +71,7 @@ export {
   Login, 
   NotFound, 
   Settings,
+  Notifications,
   ArticleList,
-  ArticleEdit
+  ArticleEdit,
 } 

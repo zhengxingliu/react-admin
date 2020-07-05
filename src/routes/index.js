@@ -5,6 +5,7 @@ import {
   Login, 
   NotFound, 
   Settings,
+  Notifications,
   ArticleList,
   ArticleEdit
 } from '../views'
@@ -41,4 +42,8 @@ export const adminRoutes = [{
   title: 'Settings',
   isNav: true,
   icon: SettingOutlined
+},{
+  pathname: '/admin/notifications',
+  component: Notifications,
+  title: 'Notifications'
 }]

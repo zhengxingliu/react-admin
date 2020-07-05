@@ -1,6 +1,8 @@
 import React, { Component } from "react"
-import { Layout, Menu } from "antd"
 import { Link, withRouter } from "react-router-dom"
+import { Layout, Menu, Dropdown, Avatar, Badge } from "antd"
+import { DownOutlined,  UserOutlined  } from '@ant-design/icons'
+
 
 import "./navbar.less"
 // import logo from "./logo.png"
@@ -12,6 +14,29 @@ const { Header, Content, Sider } = Layout
 
 @withRouter
 class SideNav extends Component {
+
+  onDropMenuClick = ({key}) => {
+    this.props.history.push(key)
+  }
+
+  menu = (
+    <Menu onClick={this.onDropMenuClick}>
+      <Menu.Item key='/admin/notifications'>
+        <Badge dot>
+          Notification
+        </Badge>
+      </Menu.Item>
+      <Menu.Item key='/admin/settings'>
+        Account Setting
+      </Menu.Item>
+      <Menu.Item key='/login'>
+        Log Out
+      </Menu.Item>
+    </Menu>
+  )
+
+ 
+
   render() {
     // let breadcrumbs = this.props.location.pathname.split("/")
     // breadcrumbs = breadcrumbs.filter((item) => item !== "")
@@ -23,10 +48,25 @@ class SideNav extends Component {
         <Header className="header main-header">
           <div className="logo main-logo">
             <a href='/'>
-              <img src={logo} alt="react-admin" height='80%' />
-              <h1 style={{verticalAlign: 'top'}}>React Admin</h1>
+              <img src={logo} alt="react-admin" />
+              <h1> React Admin</h1>
             </a>
           </div>
+          <div>
+         
+          <Dropdown overlay={this.menu}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+              <Badge count={10} >
+                <Avatar icon={<UserOutlined/>} /> 
+              </Badge>
+              <span style={{padding: '0 4px 0 4px'}}>Hello, User</span>
+              <DownOutlined />    
+            </div>
+          </Dropdown>
+        
+          
+          </div>
+
         </Header>
         <Layout>
           <Sider breakpoint="lg" collapsedWidth="0" style={{zIndex: 100}}>
