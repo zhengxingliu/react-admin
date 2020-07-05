@@ -6,10 +6,13 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const ajax = axios.create({
   baseURL: isDev? 'http://rap2.taobao.org:38080/app/mock/259142' : ''
+  // baseURL: isDev? 'http://localhost:8080' : ''
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
 })
 
 ajax.interceptors.request.use((config) => {
-
   // pass in request body params 
   config.data = {
     ...config.data,
@@ -30,10 +33,11 @@ ajax.interceptors.response.use((resp) => {
 })
 
 export const getArticleList = (offset=0, limited=10) => {
-  return ajax.post('/api/v1/articlelist', {
+  return ajax.post('/api/v1/articlelist', 
+  {
     //body params
     offset,
-    limited
+    limited,
   })
 }
 
@@ -45,7 +49,7 @@ export const getArticleById = (id) => {
   return ajax.post(`/api/v1/article/:${id}`)
 }
 
-export const saveArticle = (id, data) => {
+export const saveEditArticle = (id, data) => {
   return ajax.put(`/api/v1/article/:${id}`, data)
 
 }

@@ -4,12 +4,12 @@ import { Route, Switch, Redirect } from "react-router-dom"
 
 import { adminRoutes } from "./routes"
 
-import { SideNav } from "./components"
+import { Navbar } from "./components"
 
 class App extends Component {
   render() {
     return (
-      <SideNav>
+      <Navbar>
 
 
         <Switch>
@@ -29,7 +29,7 @@ class App extends Component {
           <Redirect to={adminRoutes[0].pathname} from="/admin" exact />
           <Redirect to="/404" />
         </Switch>
-      </SideNav>
+      </Navbar>
    
     )
   }

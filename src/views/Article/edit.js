@@ -5,7 +5,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './quillEditor.less'
 
-import { getArticleById, saveArticle } from '../../requests'
+import { getArticleById, saveEditArticle } from '../../requests'
 
 const formLayout = {
   labelCol: {
@@ -66,7 +66,7 @@ export default class Edit extends Component {
       data.createAt = data.createAt.valueOf()
 
 
-      saveArticle(this.props.match.params.id, data)
+      saveEditArticle(this.props.match.params.id, data)
         .then(res => {
           message.success('Article saved.')
           this.props.history.push('/admin/article')

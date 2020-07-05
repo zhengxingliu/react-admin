@@ -2,10 +2,11 @@ import React, { Component } from "react"
 import { Layout, Menu } from "antd"
 import { Link, withRouter } from "react-router-dom"
 
-import "./sideNav.less"
-import logo from "./logo.png"
+import "./navbar.less"
+// import logo from "./logo.png"
+import logo from "./AdminLogo.png"
 import { adminRoutes } from "../../routes"
-import { Footer } from "../../components"
+import { Footer } from ".."
 
 const { Header, Content, Sider } = Layout
 
@@ -22,8 +23,8 @@ class SideNav extends Component {
         <Header className="header main-header">
           <div className="logo main-logo">
             <a href='/'>
-              <img src={logo} alt="react-admin" />
-              <h1>React Admin</h1>
+              <img src={logo} alt="react-admin" height='80%' />
+              <h1 style={{verticalAlign: 'top'}}>React Admin</h1>
             </a>
           </div>
         </Header>
