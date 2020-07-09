@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 import { Layout, Menu, Dropdown, Avatar, Badge } from "antd"
 import { DownOutlined,  UserOutlined  } from '@ant-design/icons'
-
-
+import { connect } from 'react-redux'
+ 
 import "./navbar.less"
 // import logo from "./logo.png"
 import logo from "./AdminLogo.png"
@@ -12,6 +12,13 @@ import { Footer } from ".."
 
 const { Header, Content, Sider } = Layout
 
+const mapState = state => {
+  return {
+    notificationCount: state.notifications.list.filter(item => item.hasRead === false).length
+  }
+}
+
+@connect(mapState)
 @withRouter
 class SideNav extends Component {
 
@@ -19,19 +26,19 @@ class SideNav extends Component {
     this.props.history.push(key)
   }
 
-  menu = (
-    <Menu onClick={this.onDropMenuClick}>
-      <Menu.Item key='/admin/notifications'>
-        <Badge dot>
-          Notification
-        </Badge>
-      </Menu.Item>
-      <Menu.Item key='/admin/settings'>
-        Account Setting
-      </Menu.Item>
-      <Menu.Item key='/login'>
-        Log Out
-      </Menu.Item>
+  renderMenu = () => (
+      <Menu onClick={this.onDropMenuClick}>
+        <Menu.Item key='/admin/notifications'>
+          <Badge dot={this.props.notificationCount}>
+            Notification
+          </Badge>
+        </Menu.Item>
+        <Menu.Item key='/admin/settings'>
+          Account Setting
+        </Menu.Item>
+        <Menu.Item key='/login'>
+          Log Out
+        </Menu.Item>
     </Menu>
   )
 
@@ -40,7 +47,7 @@ class SideNav extends Component {
   render() {
     // let breadcrumbs = this.props.location.pathname.split("/")
     // breadcrumbs = breadcrumbs.filter((item) => item !== "")
-
+     
     const menus = adminRoutes.filter((route) => route.isNav === true)
 
     return (
@@ -54,9 +61,9 @@ class SideNav extends Component {
           </div>
           <div>
          
-          <Dropdown overlay={this.menu}>
+          <Dropdown overlay={this.renderMenu()}>
             <div style={{display: 'flex', alignItems: 'center'}}>
-              <Badge count={10} >
+              <Badge count={this.props.notificationCount} >
                 <Avatar icon={<UserOutlined/>} /> 
               </Badge>
               <span style={{padding: '0 4px 0 4px'}}>Hello, User</span>

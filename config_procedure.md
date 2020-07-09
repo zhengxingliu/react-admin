@@ -51,4 +51,64 @@
     
     WYSIWYG editor: *CKEditor, TinyMCE*
     
-    
+11. dashboard page:
+
+    * charts using *echarts* or *bizcharts* or *antv g2*
+    * statistic blocks ui using *col, row, flex, card, statistics*
+
+12. add top-right dropdown menu for notification and logout
+
+13. use redux to manage notification read status
+
+    * npm i **redux, react-redux, redux-thunk** -S
+
+    * create *src/store.js*
+
+    * ```js
+      import { createStore, applyMiddleware} from 'redux'
+      import thunk from 'redux-thunk'
+      
+      import rootReducer from './reducers'
+      
+      export default createStore(
+        rootReducer,
+        applyMiddleware(thunk)
+      )
+      ```
+
+    * create reducer with initState
+
+    * combine reducers to rootReducer
+
+    * in /src/init.js,
+
+      *  import Provider from react-redux, import store
+      * wrap everything in render with <Provider store={store}>
+
+    * in views,
+
+      *  import connect from react-redux
+
+      * connect(component) or @connect() decorator, check if there is a dispatch method in props.
+
+      * add mapState
+
+      * ```js
+        const mapState = state => {
+          const { list } = state.notification
+          return {
+            list
+          }
+        }
+        
+        @connect(mapState)
+        class Notifications extends Component {
+        ```
+
+    * create actions
+
+      * actionTypes.js -> contains actiontype names
+      * notifications.js -> dispatch action(types and payload)
+      * import action in component, call action on event 
+      * in reducer, import actiontypes and handle actions in switch case
+
