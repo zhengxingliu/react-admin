@@ -3,12 +3,15 @@ import { Link, withRouter } from "react-router-dom"
 import { Layout, Menu, Dropdown, Avatar, Badge } from "antd"
 import { DownOutlined,  UserOutlined  } from '@ant-design/icons'
 import { connect } from 'react-redux'
- 
+
+import { getNotificationList } from '../../actions/notifications'
+
 import "./navbar.less"
 // import logo from "./logo.png"
 import logo from "./AdminLogo.png"
 import { adminRoutes } from "../../routes"
 import { Footer } from ".."
+
 
 const { Header, Content, Sider } = Layout
 
@@ -18,10 +21,12 @@ const mapState = state => {
   }
 }
 
-@connect(mapState)
+@connect(mapState, {getNotificationList})
 @withRouter
 class SideNav extends Component {
-
+  componentDidMount() {
+    this.props.getNotificationList()
+  }
   onDropMenuClick = ({key}) => {
     this.props.history.push(key)
   }

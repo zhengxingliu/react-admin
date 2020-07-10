@@ -1,21 +1,28 @@
 import actionTypes from './actionTypes'
+import { getNotifications } from '../requests'
 
-export const startUpdatingNotificationState = () => {
+export const startUpdatingNotificationState = (id) => {
   return {
     type: actionTypes.START_UPDATING_NOTICIFATION_STATE,
+    payload: {
+      id
+    }
   }
 }
 
-export const finishUpdatingNotificationState = () => {
+export const finishUpdatingNotificationState = (id) => {
   return {
     type: actionTypes.FINISH_UPDATING_NOTIFICATION_STATE,
+    payload: {
+      id
+    }
   }
 }
 
 export const markNotificationAsReadById = (id) => {
   //dispatch for async requests, mock with setTimeout 
   return dispatch => {
-    dispatch(startUpdatingNotificationState())
+    dispatch(startUpdatingNotificationState(id))
     setTimeout(() => {
       dispatch({
         type: actionTypes.MARK_NOTIFICATION_AS_READ_BY_ID,
@@ -23,7 +30,7 @@ export const markNotificationAsReadById = (id) => {
           id
         }
       })
-      dispatch(finishUpdatingNotificationState())
+      dispatch(finishUpdatingNotificationState(id))
     }, 500)
   }
 }
@@ -31,7 +38,7 @@ export const markNotificationAsReadById = (id) => {
 export const markNotificationAsUnReadById = (id) => {
   //dispatch for async requests, mock with setTimeout 
   return dispatch => {
-    dispatch(startUpdatingNotificationState())
+    dispatch(startUpdatingNotificationState(id))
     setTimeout(() => {
       dispatch({
         type: actionTypes.MARK_NOTIFICATION_AS_UNREAD_BY_ID,
@@ -39,7 +46,7 @@ export const markNotificationAsUnReadById = (id) => {
           id
         }
       })
-      dispatch(finishUpdatingNotificationState())
+      dispatch(finishUpdatingNotificationState(id))
     }, 500)
   }
 }
@@ -55,3 +62,21 @@ export const markAllNotificationsAsRead = () => dispatch => {
   }, 500)
 }
 
+export const getNotificationList = () => dispatch => {
+  dispatch({
+    type: actionTypes.FETCH_NOTIFICATIONS
+  })
+  getNotifications()
+    .then(res => {
+      console.log(res)
+      dispatch({
+        type: actionTypes.RECEVIED_NOTIFICATIONS,
+        payload: {
+          list:  res.data.list
+        } 
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}

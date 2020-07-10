@@ -7,15 +7,11 @@ import { connect } from 'react-redux'
 import { 
   markNotificationAsReadById,
   markNotificationAsUnReadById,
-  markAllNotificationsAsRead
+  markAllNotificationsAsRead,
 } from '../../actions/notifications'
 
 const mapState = state => {
-  const {
-    list,
-    isLoading
-  } = state.notifications
-
+  const { list, isLoading } = state.notifications
   return {
     list,
     isLoading
@@ -48,20 +44,29 @@ class Notifications extends Component {
                 actions={[
                 
                   item.hasRead 
-                  ? <Tooltip title='mark as unread' 
-                      color={'rgba(0, 0, 0, 0.3)'} overlayStyle={{fontSize: '10px', height: '35px'}} mouseEnterDelay={1} 
+                  ? <Tooltip title='click to mark as unread' 
+                      color={'rgba(0, 0, 0, 0.3)'} overlayStyle={{fontSize: '10px', height: '35px'}} mouseEnterDelay={0.5} 
                     >
-                      <Button onClick={this.props.markNotificationAsUnReadById.bind(this, item.id)}><CheckOutlined /></Button> 
+                      <Button 
+                        onClick={this.props.markNotificationAsUnReadById.bind(this, item.id)} 
+                        loading={item.isLoading}
+                        icon={<CheckOutlined />}
+                      />
                     </Tooltip>
-                  : < Tooltip title='mark as read' 
-                      color={'rgba(0, 0, 0, 0.3)'} overlayStyle={{fontSize: '10px', height: '35px'}} mouseEnterDelay={1}
+                  : < Tooltip title='click to mark as read' 
+                      color={'rgba(0, 0, 0, 0.3)'} overlayStyle={{fontSize: '10px', height: '35px'}} mouseEnterDelay={0.5}
                     >
-                      <Button onClick={this.props.markNotificationAsReadById.bind(this, item.id)}><MailTwoTone /></Button>
+                      <Button 
+                        onClick={this.props.markNotificationAsReadById.bind(this, item.id)} 
+                        loading={item.isLoading}
+                        icon={<MailTwoTone />}
+                      />
                     </Tooltip>
                 ]}
               >
                 <List.Item.Meta
-                  style={{flex: '1 1 auto'}}
+                  style={{flex: '1 1 auto' }}
+
                   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                   title={<a href="/admin/notifications">{<Badge dot={!item.hasRead} offset={[4, 0]} >{item.title}</Badge>}</a>}
                   description={item.desc}

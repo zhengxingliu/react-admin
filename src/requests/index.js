@@ -57,3 +57,7 @@ export const saveEditArticle = (id, data) => {
 export const getSiteVisitStatistics = () => {
   return ajax.post('/api/v1/statistics/visits')
 }
+
+export const getNotifications = () => {
+  return ajax.post('/api/v1/notifications')
+}
