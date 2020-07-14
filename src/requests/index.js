@@ -4,7 +4,7 @@ import { message } from 'antd'
 const isDev = process.env.NODE_ENV === 'development'
 
 
-const ajax = axios.create({
+const request = axios.create({
   baseURL: isDev? 'http://rap2.taobao.org:38080/app/mock/259142' : ''
   // baseURL: isDev? 'http://localhost:8080' : ''
   // headers: {
@@ -12,7 +12,13 @@ const ajax = axios.create({
   // },
 })
 
-ajax.interceptors.request.use((config) => {
+// no interceptor version
+const request1 = axios.create({
+  baseURL: isDev? 'http://rap2.taobao.org:38080/app/mock/259142' : ''
+})
+
+
+request.interceptors.request.use((config) => {
   // pass in request body params 
   config.data = {
     ...config.data,
@@ -22,7 +28,7 @@ ajax.interceptors.request.use((config) => {
   return config
 })
 
-ajax.interceptors.response.use((resp) => {
+request.interceptors.response.use((resp) => {
   if (parseInt(resp.data.code) === 200 && resp.data.errMsg === '') {
     return resp.data
   } else {
@@ -33,7 +39,7 @@ ajax.interceptors.response.use((resp) => {
 })
 
 export const getArticleList = (offset=0, limited=10) => {
-  return ajax.post('/api/v1/articlelist', 
+  return request.post('/api/v1/articlelist', 
   {
     //body params
     offset,
@@ -42,22 +48,26 @@ export const getArticleList = (offset=0, limited=10) => {
 }
 
 export const deleteArticle = (id) => {
-  return ajax.delete(`/api/v1/article/${id}`)
+  return request.delete(`/api/v1/article/${id}`)
 }
 
 export const getArticleById = (id) => {
-  return ajax.post(`/api/v1/article/:${id}`)
+  return request.post(`/api/v1/article/:${id}`)
 }
 
 export const saveEditArticle = (id, data) => {
-  return ajax.put(`/api/v1/article/:${id}`, data)
+  return request.put(`/api/v1/article/:${id}`, data)
 
 }
 
 export const getSiteVisitStatistics = () => {
-  return ajax.post('/api/v1/statistics/visits')
+  return request.post('/api/v1/statistics/visits')
 }
 
 export const getNotifications = () => {
-  return ajax.post('/api/v1/notifications')
+  return request.post('/api/v1/notifications')
+}
+
+export const loginRequest = (userInfo) => {
+  return request1.post('/api/v1/login', userInfo)
 }

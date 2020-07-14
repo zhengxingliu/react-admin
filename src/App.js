@@ -1,17 +1,25 @@
 import React, { Component } from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
-
+import { connect } from 'react-redux'
 
 import { adminRoutes } from "./routes"
 
 import { Navbar } from "./components"
 
+const mapStateToProps = state => ({
+  isLogin: state.user.isLogin
+})
+
+
+@connect(mapStateToProps)
 class App extends Component {
+
   render() {
     return (
+    
+      this.props.isLogin 
+      ?
       <Navbar>
-
-
         <Switch>
           {adminRoutes.map((route) => {
             return (
@@ -30,7 +38,7 @@ class App extends Component {
           <Redirect to="/404" />
         </Switch>
       </Navbar>
-   
+      : <Redirect to='/login'/>
     )
   }
 }

@@ -17,8 +17,7 @@ render(
     <Router>
       <Switch>
         <Route path='/admin' render={(routerProps) => {
-          // TODO: login authorization to access page 
-          return <App  {...routerProps} />
+          return <App  {...routerProps} /> 
         }} />
         <Redirect to='/admin' from='/' exact/>
       {

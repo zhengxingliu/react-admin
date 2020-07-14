@@ -68,7 +68,6 @@ export const getNotificationList = () => dispatch => {
   })
   getNotifications()
     .then(res => {
-      console.log(res)
       dispatch({
         type: actionTypes.RECEVIED_NOTIFICATIONS,
         payload: {
