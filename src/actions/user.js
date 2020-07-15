@@ -15,6 +15,10 @@ const loginSuccess  =  (userInfo) => {
 }
 
 const loginFailed  =  () => {
+  window.localStorage.removeItem('authToken')
+  window.sessionStorage.removeItem('authToken')
+  window.localStorage.removeItem('userInfo')
+  window.sessionStorage.removeItem('userInfo')
   return {
     type: actionTypes.LOGIN_FAILED,
   }
@@ -22,13 +26,20 @@ const loginFailed  =  () => {
 
 export const login = (userInfo) => dispatch => {
   dispatch(startLogin())
+  const remember = userInfo.remember
   loginRequest(userInfo)
     .then(res => {
       if (res.status === 200) {
-        dispatch(loginSuccess({
-          ... res.data.data,
-          remember: userInfo.rember
-        }))
+        //store authentication
+        const {authToken, ...userInfo} = res.data.data
+        if (remember === true) {
+          window.localStorage.setItem('authToken', authToken)
+          window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        } else {
+          window.sessionStorage.setItem('authToken', authToken)
+          window.sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
+        }
+        dispatch(loginSuccess(res.data.data))
       } else {
         dispatch(loginFailed())
       }
@@ -36,4 +47,9 @@ export const login = (userInfo) => dispatch => {
     .catch(err => {
       console.log(err)
     })
+}
+
+export const logout = () => dispatch => {
+  //TODO: notify backend server about logout 
+  dispatch(loginFailed())
 }

@@ -5,6 +5,7 @@ import { DownOutlined,  UserOutlined  } from '@ant-design/icons'
 import { connect } from 'react-redux'
 
 import { getNotificationList } from '../../actions/notifications'
+import { logout } from '../../actions/user'
 
 import "./navbar.less"
 // import logo from "./logo.png"
@@ -17,18 +18,24 @@ const { Header, Content, Sider } = Layout
 
 const mapState = state => {
   return {
-    notificationCount: state.notifications.list.filter(item => item.hasRead === false).length
+    notificationCount: state.notifications.list.filter(item => item.hasRead === false).length,
+    avatar: state.user.avatar,
+    displayName: state.user.displayName
   }
 }
 
-@connect(mapState, {getNotificationList})
+@connect(mapState, {getNotificationList, logout})
 @withRouter
 class SideNav extends Component {
   componentDidMount() {
     this.props.getNotificationList()
   }
   onDropMenuClick = ({key}) => {
-    this.props.history.push(key)
+    if (key == '/logout') {
+      this.props.logout()
+    } else {
+      this.props.history.push(key)
+    }
   }
 
   renderMenu = () => (
@@ -41,7 +48,7 @@ class SideNav extends Component {
         <Menu.Item key='/admin/settings'>
           Account Setting
         </Menu.Item>
-        <Menu.Item key='/login'>
+        <Menu.Item key='/logout'>
           Log Out
         </Menu.Item>
     </Menu>
@@ -69,9 +76,9 @@ class SideNav extends Component {
           <Dropdown overlay={this.renderMenu()}>
             <div style={{display: 'flex', alignItems: 'center'}}>
               <Badge count={this.props.notificationCount} >
-                <Avatar icon={<UserOutlined/>} /> 
+                <Avatar src={this.props.avatar} /> 
               </Badge>
-              <span style={{padding: '0 4px 0 4px'}}>Hello, User</span>
+                <span style={{padding: '0 4px 0 4px'}}>Hello, {this.props.displayName}</span>
               <DownOutlined />    
             </div>
           </Dropdown>
