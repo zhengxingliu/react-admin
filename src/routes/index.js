@@ -8,7 +8,8 @@ import {
   Notifications,
   ArticleList,
   ArticleEdit,
-  NoAuth
+  NoAuth,
+  Profile
 } from '../views'
 
 
@@ -42,12 +43,12 @@ export const adminRoutes = [{
   title: 'Article List',
   isNav: true,
   icon: FileTextOutlined,
-  role: ['001', '002']
+  role: ['001', '002', '003']
 
 },{
   pathname: '/admin/article/edit/:id',
   component: ArticleEdit,
-  role: ['001, 002']
+  role: ['001', '002']
 },{
   pathname: '/admin/settings',
   component: Settings,
@@ -59,6 +60,10 @@ export const adminRoutes = [{
   pathname: '/admin/notifications',
   component: Notifications,
   title: 'Notifications',
+  role: ['001', '002', '003']
+},{
+  pathname: '/admin/profile',
+  component: Profile,
   role: ['001', '002', '003']
 },{
   pathname: '/admin/no-auth',

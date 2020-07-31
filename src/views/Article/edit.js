@@ -108,9 +108,9 @@ export default class Edit extends Component {
       .then(res => {
         const {data} = res
         data.createAt = moment(data.createAt)
+        if (!this.updater.isMounted(this)) return 
         this.setState({isloading: false})
         this.formRef.current.setFieldsValue(data)
-   
       })
       .catch(err => {
         console.log(err)

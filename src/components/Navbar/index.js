@@ -47,7 +47,7 @@ class SideNav extends Component {
             Notification
           </Badge>
         </Menu.Item>
-        <Menu.Item key='/admin/settings'>
+        <Menu.Item key='/admin/profile'>
           Account Setting
         </Menu.Item>
         <Menu.Item key='/logout'>
@@ -65,7 +65,7 @@ class SideNav extends Component {
     const menus = adminRoutes.filter((route) => route.isNav === true)
 
     return (
-      <Layout style={{ height: "100%"}}>
+      <Layout className='main-layout'>
         <Header className="header main-header">
           <div className="logo main-logo">
             <a href='/'>
@@ -108,7 +108,7 @@ class SideNav extends Component {
               })}
             </Menu>
           </Sider>
-          <Layout style={{ padding: "24px" }}>
+          <Layout className='content-layout' style={{ padding: "24px"}}>
             {/* <Breadcrumb style={{ margin: "16px 0" }}>
               {breadcrumbs.map((item) => {
                 return <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
@@ -124,9 +124,14 @@ class SideNav extends Component {
                 backgroundColor: "#FFF"
               }}
             >
-              {this.props.children}
+
+              <div className="content" style={{height: '100px'}}>
+                {this.props.children} 
+              </div>
+              <Footer/>
             </Content>
-            <Footer />
+            
+                         
           </Layout>
         </Layout>
       </Layout>

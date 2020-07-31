@@ -6,7 +6,9 @@ export default class Footer extends Component {
   render() {
     return (
       <div className='footer'>
-         &copy; {new Date().getFullYear()}
+        <span>Demo website</span>
+        <span>Mock API using <a href='http://rap2.taobao.org/'>Rap2</a></span>
+        &copy; {new Date().getFullYear()}
       </div>
     )
   }

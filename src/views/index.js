@@ -62,6 +62,9 @@ const NoAuth = loadable(() => import('./NoAuth'), {
   fallback:  <Loading/>
 })
 
+const Profile = loadable(() => import('./Profile'), {
+  fallback:  <Loading/>
+})
 // old config with react-loadable
 
 // const Dashboard = Loadable({
@@ -78,5 +81,6 @@ export {
   Notifications,
   ArticleList,
   ArticleEdit,
-  NoAuth
+  NoAuth,
+  Profile
 } 

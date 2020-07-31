@@ -73,6 +73,9 @@ export default class ArticleList extends Component {
     this.setState({isLoading: true})
     getArticleList(this.state.offset, this.state.limited)
       .then(res => {
+        // prevent setState on unmounted component
+        if (!this.updater.isMounted(this)) return 
+
         this.setState({
           total: res.data.total,
           data: res.data.list.map(item => {
@@ -90,6 +93,7 @@ export default class ArticleList extends Component {
         console.log(err)
       })
       .finally(() => {
+        if (!this.updater.isMounted(this)) return 
         this.setState({isLoading: false})
       })
   }
@@ -167,6 +171,11 @@ export default class ArticleList extends Component {
   componentDidMount() {
     this.getData()
   }
+
+  // componentWillMount () {
+  //   // xhr.abort()
+  //   console.log('componentWillMount')
+  // }
 
   render() {
     return (

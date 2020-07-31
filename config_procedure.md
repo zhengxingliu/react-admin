@@ -116,6 +116,29 @@
       * import action in component, call action on event 
       * in reducer, import actiontypes and handle actions in switch case
 
-* persist login in local storage or session storage
-  * save authToken and userinfo 
-* add permission levels that seperates base users and admins to view different pages (page authorization)
+15. persist login in local storage or session storage
+    * save authToken and userinfo 
+
+
+
+16. add permission levels that seperates base users and admins to view different pages ( restrict page authorization)
+    * add roles to routes that assigns user permissions
+    * redirect to no auth page if user has no perssion to visit a certain page
+
+17. fix error caused from setState of unmounted component
+
+    * caused by quickly changing between pages that used ajax requests
+
+    * switching to another page cause the component to unmount. When the ajax response is received after the component is unmounted, it still wants to store response to state using setState, but it will raise an error of setState on unmounted components 
+
+    * solution: 
+
+    * 1. abort xhr on componentWillUnmount()
+
+      2. check if component is mounted before setState()
+
+         ```
+             if (!this.updater.isMounted(this)) return 
+         ```
+
+         

@@ -27,9 +27,11 @@ export default class Dashboard extends Component {
   }
   
   getVisitsGraphData = () => {
+    if (!this.updater.isMounted(this)) return 
     this.setState({isLoading: true})
     getSiteVisitStatistics()
       .then(res => {
+      
         const months = res.data.amount.map(item => item.month)
         const visits = res.data.amount.map(item => item.visits)
         const option = {
@@ -103,9 +105,11 @@ export default class Dashboard extends Component {
       })
       .catch(err => {
         console.log(err)
+        if (!this.updater.isMounted(this)) return 
         this.setState({hasError: true})
       })
       .finally(() => {
+        if (!this.updater.isMounted(this)) return 
         this.setState({isLoading: false})
       })
   }
@@ -153,13 +157,12 @@ export default class Dashboard extends Component {
 
             <Col className="gutter-row" {...gridSpan}>
               <Card hoverable className='gutter-box' bodyStyle={{padding: '13px'}}>
-                    <Statistic
+                    <Statistic 
                       title="Active"
                       value={11.28}
                       precision={2}
-                      valueStyle={{ color: '#3f8600', }}
+                      valueStyle={{ color: '#3f8600'}}
                       prefix={<ArrowUpOutlined />}
-          
                       suffix="%"
                     />
                     <Divider />
