@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 import { Layout, Menu, Dropdown, Avatar, Badge } from "antd"
-import { DownOutlined,  UserOutlined  } from '@ant-design/icons'
+import { DownOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 
 import { getNotificationList } from '../../actions/notifications'
@@ -27,11 +27,13 @@ const mapState = state => {
 @connect(mapState, {getNotificationList, logout})
 @withRouter
 class SideNav extends Component {
+
   componentDidMount() {
     this.props.getNotificationList()
   }
+
   onDropMenuClick = ({key}) => {
-    if (key == '/logout') {
+    if (key === '/logout') {
       this.props.logout()
     } else {
       this.props.history.push(key)

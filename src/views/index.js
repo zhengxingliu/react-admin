@@ -58,6 +58,10 @@ const ArticleEdit = loadable(() => import('./Article/Edit'), {
   fallback:  <Loading/>
 })
 
+const NoAuth = loadable(() => import('./NoAuth'), {
+  fallback:  <Loading/>
+})
+
 // old config with react-loadable
 
 // const Dashboard = Loadable({
@@ -74,4 +78,5 @@ export {
   Notifications,
   ArticleList,
   ArticleEdit,
+  NoAuth
 } 

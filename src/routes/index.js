@@ -7,7 +7,8 @@ import {
   Settings,
   Notifications,
   ArticleList,
-  ArticleEdit
+  ArticleEdit,
+  NoAuth
 } from '../views'
 
 
@@ -25,25 +26,42 @@ export const adminRoutes = [{
   component: Dashboard,
   title: 'Dashboard',
   isNav: true,
-  icon: DashboardOutlined
+  icon: DashboardOutlined,
+  role: ['001', '002', '003']
+  /* 
+  authorization role which has access to different levels of pages
+  001: super admin
+  002: regular admin
+  003: basic user
+  */
+
 },{
   pathname: '/admin/article',
   component: ArticleList,
   exact: true,
   title: 'Article List',
   isNav: true,
-  icon: FileTextOutlined
+  icon: FileTextOutlined,
+  role: ['001', '002']
+
 },{
   pathname: '/admin/article/edit/:id',
-  component: ArticleEdit
+  component: ArticleEdit,
+  role: ['001, 002']
 },{
   pathname: '/admin/settings',
   component: Settings,
   title: 'Settings',
   isNav: true,
-  icon: SettingOutlined
+  icon: SettingOutlined,
+  role: ['001']
 },{
   pathname: '/admin/notifications',
   component: Notifications,
-  title: 'Notifications'
+  title: 'Notifications',
+  role: ['001', '002', '003']
+},{
+  pathname: '/admin/no-auth',
+  component: NoAuth,
+  role: ['001', '002', '003']
 }]

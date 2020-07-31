@@ -116,3 +116,6 @@
       * import action in component, call action on event 
       * in reducer, import actiontypes and handle actions in switch case
 
+* persist login in local storage or session storage
+  * save authToken and userinfo 
+* add permission levels that seperates base users and admins to view different pages (page authorization)
