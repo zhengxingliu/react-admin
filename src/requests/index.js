@@ -5,7 +5,7 @@ const isDev = process.env.NODE_ENV === 'development'
 
 
 const request = axios.create({
-  baseURL: isDev? 'http://rap2.taobao.org:38080/app/mock/259142' : ''
+  baseURL: isDev? 'http://rap2.taobao.org:38080/app/mock/259142' : 'http://rap2.taobao.org:38080/app/mock/259142'
   // baseURL: isDev? 'http://localhost:8080' : ''
   // headers: {
   //   'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ const request = axios.create({
 
 // no interceptor version
 const request1 = axios.create({
-  baseURL: isDev? 'http://rap2.taobao.org:38080/app/mock/259142' : ''
+  baseURL: isDev? 'http://rap2.taobao.org:38080/app/mock/259142' : 'http://rap2.taobao.org:38080/app/mock/259142'
 })
 
 
