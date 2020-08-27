@@ -37,7 +37,7 @@ class App extends Component {
           })}
           {/* redirect to dashboard */}
           <Redirect to={adminRoutes[0].pathname} from="/admin" exact />
-          <Redirect to="/404" />
+          {/* <Redirect to="/404" /> */}
         </Switch>
       </Navbar>
       : <Redirect to='/login'/>
