@@ -117,6 +117,7 @@
       * in reducer, import actiontypes and handle actions in switch case
 
 15. persist login in local storage or session storage
+    
     * save authToken and userinfo 
 
 
@@ -142,3 +143,4 @@
          ```
 
          
+

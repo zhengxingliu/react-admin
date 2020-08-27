@@ -19,17 +19,32 @@ const mapState = state => ({
 class Login extends Component {
   submitLogin = (userInfo) => {
     this.props.login(userInfo)
+    // this.mixedContentWarning()
+  }
+
+  // Enable mixed content in browser for hosting on Github page, ajax is blocked from https (github) to http (rap2)
+  // TODO: fix mixed content error
+  mixedContentWarning = () => {
+    notification['warning']({
+      message: 'Mixed Content Request',
+      description: 
+        'If login is not redirecting, enable mixed content in your browser. The mock api server is using http instead of https, allow insure content in browser settting.',
+      // icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      duration: 0,
+      key: 'login-message'
+    })
   }
 
   openNotification = () => {
     notification.open({
       message: 'Hello',
       description: 
-        'This is a demo for a company admin website frontend, login with any mock username and password',
+        'This is a demo for a company admin website frontend, login with any mock username and password.',
       icon: <SmileOutlined style={{ color: '#108ee9' }} />,
       duration: 0,
       key: 'login-message'
     })
+    
   }
 
   componentDidMount() {
