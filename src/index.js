@@ -25,7 +25,7 @@ render(
           return <Route key={route.pathname} path={route.pathname} component={route.component} />
         })
       }
-        {/* <Redirect to='/404'/> */}
+        <Redirect to='/404'/>
       </Switch>
     </Router>
   </Provider>,
