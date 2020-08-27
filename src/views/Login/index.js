@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox, Card, Col, Row, Menu, Spin} from 'antd'
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { Form, Input, Button, Checkbox, Card, Col, Row, Menu, Spin, notification} from 'antd'
+import { UserOutlined, LockOutlined, SmileOutlined} from '@ant-design/icons'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { login } from '../../actions/user'
@@ -21,6 +21,24 @@ class Login extends Component {
     this.props.login(userInfo)
   }
 
+  openNotification = () => {
+    notification.open({
+      message: 'Hello',
+      description: 
+        'This is a demo for a company admin website frontend, login with any mock username and password',
+      icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      duration: 0,
+      key: 'login-message'
+    })
+  }
+
+  componentDidMount() {
+    this.openNotification()
+  }
+
+  componentWillUnmount() {
+    notification.close('login-message')
+  }
   render() {
     return (
       this.props.isLogin 
@@ -43,7 +61,6 @@ class Login extends Component {
                 initialValues={{ remember: true }}
                 onFinish={this.submitLogin}
               >
-
                 <Form.Item
                   name="username"
                   rules={[{ required: true, message: 'Please input your Username' }]}
@@ -69,13 +86,14 @@ class Login extends Component {
                     Forgot password
                   </a> */}
                 </Form.Item>
-
                 <Form.Item  wrapperCol={wrapperCol}>
                   <Button type="primary" htmlType="submit" className="login-form-button">
                     Log in
                   </Button>
                   {/* Or <a href="">register now!</a> */}
                 </Form.Item>
+              
+
               
               </Form>
             </Card>
