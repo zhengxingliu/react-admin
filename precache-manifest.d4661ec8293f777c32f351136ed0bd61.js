@@ -1,39 +1,39 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "40a4839e5d9c7db1ddd2ed20137e40f0",
+    "revision": "2dd91f250f8dabc257e77e8a1dd4fcdc",
     "url": "/react-admin/index.html"
   },
   {
-    "revision": "ae54d60d084ff5f42c6b",
-    "url": "/react-admin/static/css/0.3a604514.chunk.css"
+    "revision": "d07006ed57ee2c1b7288",
+    "url": "/react-admin/static/css/0.75770761.chunk.css"
   },
   {
-    "revision": "7c89a866f47690e630aa",
-    "url": "/react-admin/static/css/1.d2dcc60a.chunk.css"
+    "revision": "1e6e3f95d9df44505101",
+    "url": "/react-admin/static/css/1.8bc30f18.chunk.css"
   },
   {
     "revision": "2512c24eb735c8702631",
     "url": "/react-admin/static/css/10.3073f373.chunk.css"
   },
   {
-    "revision": "7283d21239270ea7d283",
-    "url": "/react-admin/static/css/11.66faa6b2.chunk.css"
+    "revision": "db965fcf3a2cb83a80bf",
+    "url": "/react-admin/static/css/11.2447835e.chunk.css"
   },
   {
     "revision": "ec2dfb42979216cd901a",
     "url": "/react-admin/static/css/12.d75714de.chunk.css"
   },
   {
-    "revision": "33015034cab0a723ec0d",
-    "url": "/react-admin/static/css/6.73461c1a.chunk.css"
+    "revision": "084f0443e32997440f1c",
+    "url": "/react-admin/static/css/6.bbdbfd84.chunk.css"
   },
   {
-    "revision": "610c64127eb81c630ad9",
-    "url": "/react-admin/static/css/7.4fcc6b78.chunk.css"
+    "revision": "26b5c1b2e9af78fd09f8",
+    "url": "/react-admin/static/css/7.f839849f.chunk.css"
   },
   {
-    "revision": "10471dd0a66d0aed508d",
-    "url": "/react-admin/static/css/8.b8f4a18a.chunk.css"
+    "revision": "6d34d1d8c7adc4ab814b",
+    "url": "/react-admin/static/css/8.21fc7606.chunk.css"
   },
   {
     "revision": "2fcd205f6dd2c7ba3a69",
@@ -44,11 +44,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-admin/static/css/main.930f8d01.chunk.css"
   },
   {
-    "revision": "ae54d60d084ff5f42c6b",
+    "revision": "d07006ed57ee2c1b7288",
     "url": "/react-admin/static/js/0.e15a587a.chunk.js"
   },
   {
-    "revision": "7c89a866f47690e630aa",
+    "revision": "1e6e3f95d9df44505101",
     "url": "/react-admin/static/js/1.bd5d578d.chunk.js"
   },
   {
@@ -60,7 +60,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-admin/static/js/10.744a6ad1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7283d21239270ea7d283",
+    "revision": "db965fcf3a2cb83a80bf",
     "url": "/react-admin/static/js/11.2ba1376d.chunk.js"
   },
   {
@@ -68,8 +68,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-admin/static/js/12.67cee465.chunk.js"
   },
   {
-    "revision": "52404f7199e28965c7a0",
-    "url": "/react-admin/static/js/13.fd086f0b.chunk.js"
+    "revision": "3652940c4b8fd3db0a97",
+    "url": "/react-admin/static/js/13.5a9bbbf1.chunk.js"
   },
   {
     "revision": "42ca3b370fbdee835e2a",
@@ -104,11 +104,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-admin/static/js/3.21b99310.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "33015034cab0a723ec0d",
+    "revision": "084f0443e32997440f1c",
     "url": "/react-admin/static/js/6.554367e5.chunk.js"
   },
   {
-    "revision": "610c64127eb81c630ad9",
+    "revision": "26b5c1b2e9af78fd09f8",
     "url": "/react-admin/static/js/7.5014106c.chunk.js"
   },
   {
@@ -116,7 +116,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-admin/static/js/7.5014106c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "10471dd0a66d0aed508d",
+    "revision": "6d34d1d8c7adc4ab814b",
     "url": "/react-admin/static/js/8.dc3205d9.chunk.js"
   },
   {
@@ -132,8 +132,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-admin/static/js/main.7918b9b7.chunk.js"
   },
   {
-    "revision": "fe4254310770ebba8c77",
-    "url": "/react-admin/static/js/runtime-main.ce82d9e4.js"
+    "revision": "a873b780773d6df7e6db",
+    "url": "/react-admin/static/js/runtime-main.116ff548.js"
   },
   {
     "revision": "b14db446cc15c99080e4530768cb09cb",
