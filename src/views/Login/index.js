@@ -19,7 +19,7 @@ const mapState = state => ({
 class Login extends Component {
   submitLogin = (userInfo) => {
     this.props.login(userInfo)
-    this.mixedContentWarning()
+    // this.mixedContentWarning()
   }
 
   // Enable mixed content in browser for hosting on Github page, ajax is blocked from https (github) to http (rap2)

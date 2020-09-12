@@ -29,6 +29,7 @@ class App extends Component {
                 path={route.pathname}
                 exact={route.exact}
                 render={(routerProps) => {
+                  // check authorizaiton role
                   const hasPermission = route.role.includes(this.props.role)
                   return hasPermission ? <route.component {...routerProps} /> : <Redirect to='/admin/no-auth'/>
                 }}

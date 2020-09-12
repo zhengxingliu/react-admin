@@ -53,3 +53,12 @@ export const logout = () => dispatch => {
   //TODO: notify backend server about logout 
   dispatch(loginFailed())
 }
+
+export const change_avator = (avatarUrl) => {
+  return {
+    type: actionTypes.CHANGE_AVATAR,
+    payload: {
+      avatarUrl
+    }
+  }
+}

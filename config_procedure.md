@@ -2,15 +2,57 @@
 
 2. change *package.json* and *config-overrides.js*
 
+   ```js
+   "scripts": {
+       "start": "react-app-rewired start",
+       "build": "react-app-rewired build",
+       "test": "react-app-rewired test",
+       "eject": "react-scripts eject",
+       "predeploy": "npm run build",
+       "deploy": "gh-pages -d build"
+     },
+   ```
+
+   
+
 3. npm i --save-dev **less** and **less-loader**
 
-4. npm i  --save-dev **babel-plugin-impor** 
+4. npm i  --save-dev **babel-plugin-import**
 
-5.  install **antd** in *config-overrides* and theme less variables file
+5. install **antd** in *config-overrides* and theme less variables file
 
    * install babel-plugin-import
-
    * *in new verision should use craco and craco-antd*
+
+   ```js
+   /**
+    * configueration of customize-cra and react-app-rewired
+    */
+   
+   const { override, addLessLoader, fixBabelImports, addDecoratorsLegacy } = require("customize-cra")
+   const theme = require('./lessVars')
+   
+   module.exports = override(
+     fixBabelImports("import", {
+       libraryName: "antd",
+       libraryDirectory: "es",
+       style: true
+     }),
+   
+     addDecoratorsLegacy(),
+   
+     addLessLoader({
+       lessOptions: {
+         javascriptEnabled: true,
+         modifyVars: theme
+       }
+     }),
+     
+   )
+   
+   ```
+
+   
 
 6. set decorator in cra-decorator with *addDecoratorLegacy*, @babel/plugin-proposal-decorators,  and setup HOC
 
